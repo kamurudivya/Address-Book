@@ -15,8 +15,7 @@ class AddressBook
 {
     // class variables
     //patterns for different fields
-    static String firstNamePattern = "^[a-zA-Z][a-zA-Z ]*$";
-    static String lastNamePattern = "^[a-zA-Z][a-zA-Z ]*$";
+    static String fullNamePattern = "^[a-zA-Z][a-zA-Z ]*$";
     static String addressPattern = "^[a-zA-Z0-9-,. ]+$";
     static String cityPattern = "^[a-zA-Z][a-zA-Z ]*$";
     static String statePattern = "^[a-zA-Z][a-zA-Z ]*$";
@@ -24,11 +23,11 @@ class AddressBook
     static String phoneNumberPattern = "^\\d{10}$";
 
     //scanner variable is declared as static to use throughout the program
-       static final Scanner scanner = new Scanner(System.in);
+    static final Scanner scanner = new Scanner(System.in);
     //contains set of contacts which are empty(contact created and no details added)
-       static Set<String> emptyContacts = new HashSet<>();
+    static Set<String> emptyContacts = new HashSet<>();
     //contains set of contacts which are non empty(contact created and details added)
-       static Set<String> nonEmptyContacts = new HashSet<>();
+    static Set<String> nonEmptyContacts = new HashSet<>();
 
     // instance methods
     //creates empty contact
@@ -88,8 +87,7 @@ class AddressBook
         if (emptyContacts.contains(contactName))
         {
             String details = "";
-            details += takeInput("first name", firstNamePattern) + "\n";
-            details += takeInput("last name", lastNamePattern) + "\n";
+            details += takeInput("full name", fullNamePattern) + "\n";
             details += takeInput("address", addressPattern) + "\n";
             details += takeInput("city", cityPattern) + "\n";
             details += takeInput("state", statePattern) + "\n";
@@ -101,8 +99,8 @@ class AddressBook
         }
         else
         {
-            System.out.println(contactName + " is not empty contact or it is not created");
-            System.out.println("use other option c to create new contact or option e to edit already created one");
+            System.out.println(contactName + " is not a contact name or it is not created");
+            System.out.println("Use Option 1 to Create a New Contact or Option 5 to edit an existing Contact");
         }
 
     }
@@ -130,7 +128,7 @@ class AddressBook
         }
         if(!flag)
         {
-            System.out.println("no contacts are created yet");
+            System.out.println("No Contacts are Created Yet");
         }
 
     }
@@ -152,33 +150,33 @@ class AddressBook
         String contactName = scanner.nextLine();
         if(emptyContacts.contains(contactName))
         {
-            System.out.println("pleast fill the contact "+ contactName+ " before viewing it");
+            System.out.println("Please Fill the Contact Info "+ contactName+ " to View it");
             return;
         }
         else if(!nonEmptyContacts.contains(contactName))
         {
-            System.out.println("please create the contact "+contactName+" before viewing it");
+            System.out.println("Please Create the Contact "+contactName+" to  View it");
             return;
         }
-        System.out.println("the content of " + contactName + " is:");
+        System.out.println("The Content of " + contactName + " is:");
         readFile(contactName);
     }
     void editContactInfo()throws Exception
     {
-        System.out.print("enter name of the contact to edit:");
+        System.out.print("Enter Name of the Contact to Edit:");
         String contactName = scanner.nextLine();
         //if given file is empty
         if(emptyContacts.contains(contactName))
         {
             System.out.println(contactName + " is empty!");
-            System.out.println("pleast fill the contact "+ contactName + " before editing it");
+            System.out.println("Please Fill the Contact info "+ contactName + " to Edit it");
             return;
         }
         //if given file is non empty
         else if(!nonEmptyContacts.contains(contactName))
         {
             System.out.println(contactName + " does not exits!");
-            System.out.println("please create the contact "+ contactName +" before editing it");
+            System.out.println("Please Create the Contact "+ contactName +" to Edit it");
             return;
         }
         System.out.println("The content of " + contactName + " at present is:");
@@ -199,13 +197,12 @@ class AddressBook
             e.printStackTrace();
         }
         System.out.println("select a field to edit");
-        System.out.println("1 for first name");
-        System.out.println("2 for last name");
-        System.out.println("3 for Address");
-        System.out.println("4 for city");
-        System.out.println("5 for state");
-        System.out.println("6 for zip");
-        System.out.println("7 for phonenumber");
+        System.out.println("1 - Full Name");
+        System.out.println("2 - Address");
+        System.out.println("3 - City");
+        System.out.println("4 - State");
+        System.out.println("5 - Zip Code");
+        System.out.println("6 - Phone Number");
         System.out.print("enter field to edit:");
         String choice = scanner.nextLine().trim().toLowerCase();
         int field = 0;
@@ -214,30 +211,26 @@ class AddressBook
         {
             case "1":
                 field = 0;
-                pattern = firstNamePattern;
+                pattern = fullNamePattern;
                 break;
             case "2":
                 field = 1;
-                pattern = lastNamePattern;
+                pattern = addressPattern;
                 break;
             case "3":
                 field = 2;
-                pattern = addressPattern;
+                pattern = cityPattern;
                 break;
             case "4":
                 field = 3;
-                pattern = cityPattern;
+                pattern = statePattern;
                 break;
             case "5":
                 field = 4;
-                pattern = statePattern;
+                pattern = zipPattern;
                 break;
             case "6":
                 field = 5;
-                pattern = zipPattern;
-                break;
-            case "7":
-                field = 6;
                 pattern = phoneNumberPattern;
                 break;
             default:
@@ -329,13 +322,13 @@ public class AddressBookLauncher
         while (true)
         {
             System.out.println("--------------ENTER-------------");
-            System.out.println("1 for creating a new contact");
-            System.out.println("2 for filling contact details");
-            System.out.println("3 for printing all contacts");
-            System.out.println("4 for viewing  contact information");
-            System.out.println("5 for editing contact information");
-            System.out.println("6 for deleting contact information");
-            System.out.println("7 for quitting");
+            System.out.println("1 - Create a New Contact Name");
+            System.out.println("2 - Enter Contact Details");
+            System.out.println("3 - Print All Contacts");
+            System.out.println("4 - View a Contact Info");
+            System.out.println("5 - Edit a Contact Info");
+            System.out.println("6 - Delete a Contact");
+            System.out.println("7 - Exit");
             System.out.print("enter option:");
             String option = scanner.nextLine().trim().toLowerCase();
             switch (option)
